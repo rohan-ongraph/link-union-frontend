@@ -57,6 +57,7 @@ export class SignInComponent {
         severity: 'success',
         summary: 'Success',
         detail: message,
+        life: 2000, // Time duration to display message
       });
     });
   }
@@ -69,6 +70,7 @@ export class SignInComponent {
         severity: 'error',
         summary: 'Error',
         detail: message,
+        life: 2000, // Time duration to display message
       });
     });
   }

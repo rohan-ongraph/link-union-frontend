@@ -10,12 +10,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  BASE_URL: string = "https://link-union-backend.onrender.com"
+
   // Method to register a new user
   registerUser(userDetails: User): Observable<any> {
     // Initialize the list of data for the user
     userDetails.links = [];
     // Send a POST request to the server to register the user
-    return this.http.post(`https://link-union-backend.onrender.com/register`, userDetails);
+    return this.http.post(`${this.BASE_URL}/register`, userDetails);
   }
 
   loginUser(email: string, password: string): Observable<any> {
@@ -24,7 +26,7 @@ export class AuthService {
       password
     }
     // Send a POST request to the server to login the user
-    return this.http.post('https://link-union-backend.onrender.com/login', userDetails, { withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/login`, userDetails, { withCredentials: true });
   }
 
   private userActionSubject = new Subject<void>();

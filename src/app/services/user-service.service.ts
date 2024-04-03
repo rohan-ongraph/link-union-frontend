@@ -10,81 +10,50 @@ export class userService {
 
   constructor(private http: HttpClient) { }
 
+  BASE_URL: string = "https://link-union-backend.onrender.com"
+
   getUserData(userId: string): Observable<User> {
-    const url = `https://link-union-backend.onrender.com/users/${userId}`;
+    const url = `${this.BASE_URL}/users/${userId}`;
     return this.http.get<User>(url, {withCredentials: true});
   }
 
   setUserData(data: Link, userId: string): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/user/${userId}/add-link`; // Update URL to match the backend route
-    return this.http.post<any>(url, data, {withCredentials: true}).pipe(
-      tap(() => {
-        console.log('Link added successfully');
-      }),
-      catchError((error) => {
-        console.error('Failed to add link:', error);
-        return throwError('Failed to add link');
-      })
-    );
+    const url = `${this.BASE_URL}/user/${userId}/add-link`; // Update URL to match the backend route
+    return this.http.post<any>(url, data, {withCredentials: true});
   }
 
   getUserLink(userId: string, linkId: string): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/user/${userId}/links/${linkId}`;
-    return this.http.get<any>(url, {withCredentials: true}).pipe(
-      catchError((error) => {
-        console.error('Failed to fetch user link:', error);
-        return throwError('Failed to fetch user link');
-      })
-    );
+    const url = `${this.BASE_URL}/user/${userId}/links/${linkId}`;
+    return this.http.get<any>(url, {withCredentials: true});
   }
 
   getAllUserLinks(userId: string): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/user/${userId}/links`;
-    return this.http.get<any[]>(url, {withCredentials: true}).pipe(
-      catchError((error) => {
-        console.error('Failed to fetch user links:', error);
-        return throwError('Failed to fetch user links');
-      })
-    );
+    const url = `${this.BASE_URL}/user/${userId}/links`;
+    return this.http.get<any[]>(url, {withCredentials: true});
   }
 
   editLink(userId: string, linkId: string, updatedData: any): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/user/${userId}/edit-link/${linkId}`;
-    return this.http.put<any>(url, updatedData, {withCredentials: true}).pipe(
-      catchError((error) => {
-        console.error('Failed to edit link:', error);
-        return throwError('Failed to edit link');
-      })
-    );
+    const url = `${this.BASE_URL}/user/${userId}/edit-link/${linkId}`;
+    return this.http.put<any>(url, updatedData, {withCredentials: true});
   }
 
   deleteLink(userId: string, linkId: string): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/user/${userId}/delete-link/${linkId}`;
-    return this.http.delete<any>(url, {withCredentials: true}).pipe(
-      catchError((error) => {
-        console.error('Failed to delete link:', error);
-        return throwError('Failed to delete link');
-      })
-    );
+    const url = `${this.BASE_URL}/user/${userId}/delete-link/${linkId}`;
+    return this.http.delete<any>(url, {withCredentials: true});
   }
   
   deleteAllUserLinks(userId: string): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/user/${userId}/delete-all-links`;
+    const url = `${this.BASE_URL}/user/${userId}/delete-all-links`;
     return this.http.delete(url, {withCredentials: true});
   }
 
   deleteUser(userId: string): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/users/${userId}/delete`;
-    return this.http.delete<any>(url, {withCredentials: true}).pipe(
-      catchError((error) => {
-        console.error('Failed to delete user:', error);
-        return throwError('Failed to delete user');
-      })
-    );
+    const url = `${this.BASE_URL}/users/${userId}/delete`;
+    return this.http.delete<any>(url, {withCredentials: true});
   }
 
   submitContactForm(contactForm: ContactForm, userId: string): Observable<any> {
-    const url = `https://link-union-backend.onrender.com/users/${userId}/contact`; // Update the URL accordingly
+    const url = `${this.BASE_URL}/users/${userId}/contact`; // Update the URL accordingly
     return this.http.post(url, contactForm, {withCredentials: true});
   }
 

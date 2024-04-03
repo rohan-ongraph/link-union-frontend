@@ -66,7 +66,7 @@ export class ContactComponent implements OnInit {
           this.mssgService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'New entry added successfully',
+            detail: 'Contact form submitted successfully',
           });
           this.contactForm.reset(); // Reset the contact form after submission
         },
@@ -75,7 +75,7 @@ export class ContactComponent implements OnInit {
           this.mssgService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Failed to add new entry',
+            detail: 'Failed to submit form, please try again',
           });
         } 
       })

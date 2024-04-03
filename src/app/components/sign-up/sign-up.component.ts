@@ -43,7 +43,7 @@ submitForm() {
         severity: 'success',
         summary: 'Success',
         detail: 'Registered Successfully',
-        life: 1000
+        life: 2000
       });
       this.route.navigate(['signIn']);
     },
@@ -55,7 +55,7 @@ submitForm() {
           severity: 'error',
           summary: 'Error',
           detail: 'User with this email already exists',
-          life: 1000
+          life: 2000
         });
       } else {
         // Other registration errors
@@ -63,7 +63,7 @@ submitForm() {
           severity: 'error',
           summary: 'Error',
           detail: 'Something went wrong',
-          life: 1000
+          life: 2000
         });
       }
     }

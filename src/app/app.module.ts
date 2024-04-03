@@ -17,10 +17,7 @@ import { InputTextModule } from 'primeng/inputtext'; // Import InputTextModule f
 import { TooltipModule } from 'primeng/tooltip'; // Import TooltipModule from PrimeNG
 import { SidebarModule } from 'primeng/sidebar'; // Import SidebarModule from PrimeNG
 import { MenuModule } from 'primeng/menu'; // Import MenuModule from PrimeNG
-import { ListboxModule } from 'primeng/listbox'; // Import ListboxModule from PrimeNG
-import { OrderListModule } from 'primeng/orderlist'; // Import OrderListModule from PrimeNG
 import { ToolbarModule } from 'primeng/toolbar'; // Import ToolbarModule from PrimeNG
-import { DataViewModule } from 'primeng/dataview'; // Import DataViewModule from PrimeNG
 import { CardModule } from 'primeng/card'; // Import CardModule from PrimeNG
 import { DropdownModule } from 'primeng/dropdown'; // Import DropdownModule from PrimeNG
 import { ToastModule } from 'primeng/toast'; // Import ToastModule from PrimeNG
@@ -29,7 +26,6 @@ import { InputTextareaModule } from 'primeng/inputtextarea'; // Import InputText
 import { ChipsModule } from 'primeng/chips'; // Import ChipsModule from PrimeNG
 import { ConfirmDialogModule } from 'primeng/confirmdialog'; // Import ConfirmDialogModule from PrimeNG
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { AutoCompleteModule } from 'primeng/autocomplete'; // Import AutoCompleteModule from PrimeNG
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { AboutComponent } from './components/about/about.component';
 import { ContactComponent } from './components/contact/contact.component';

@@ -51,21 +51,6 @@ export class UserProfileComponent implements OnInit {
     }
 
   }
-  
-  // Method to log out user
-  // logout(): void {
-  //   this.authService.logoutUser().subscribe({
-  //     next: () => {
-  //       // Upon successful response from backend, clear session storage
-  //     sessionStorage.clear();
-  //     // Notify subscribers about user action
-  //     this.authService.notifyUserAction();
-  //     // Navigate to sign-in page
-  //     this.router.navigate(['signIn']);
-  //     },
-  //     error: (err) => console.log("Login failed: ",err)
-  //   })
-  // }
 
   logout(): void {
     sessionStorage.clear();

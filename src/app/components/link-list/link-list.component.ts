@@ -113,8 +113,6 @@ export class LinkListComponent implements OnInit {
   onSubmit() {
     if (this.bookMarkForm.valid) {
       const newEntry: Link = {
-        // _id: ,
-        // _id: this.idCounter++, // Incrementing ID counter
         name: this.bookMarkForm.value.name, // Getting name from form
         link: this.bookMarkForm.value.link, // Getting link from form
         desc: this.bookMarkForm.value.desc, // Getting description from form
@@ -124,24 +122,26 @@ export class LinkListComponent implements OnInit {
       if (this.userId) {
         // Calling service to set user data
         this.userService.setUserData(newEntry, this.userId).subscribe({
-          next: (response) => {
+          next: () => {
             // Adding success message
             this.mssgService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'New entry added successfully',
+              detail: 'Link created successfully',
+              life: 2000, // Time duration to display message
             });
             // Reset form and hide the dialog
             this.bookMarkForm.reset();
             this.fetchUserData(this.userId); // Fetch updated user data
             this.visible = !this.visible; // Toggle visible flag
           },
-          error: (error) => {
+          error: () => {
             // Adding error message
             this.mssgService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Failed to add new entry',
+              detail: 'Failed to add link',
+              life: 2000, // Time duration to display message
             });
           },
         });
@@ -153,6 +153,7 @@ export class LinkListComponent implements OnInit {
         severity: 'error',
         summary: 'Error',
         detail: 'Something went wrong',
+        life: 2000, // Time duration to display message
       });
     }
     this.visible = !this.visible; // Toggle visible flag
@@ -192,21 +193,23 @@ export class LinkListComponent implements OnInit {
       this.userService
         .editLink(this.userId, editedItem._id, editedItem)
         .subscribe({
-          next: (response) => {
+          next: () => {
             this.mssgService.add({
               severity: 'success',
               summary: 'Success',
-              detail: 'Data updated successfully',
+              detail: 'Link updated successfully',
+              life: 2000, // Time duration to display message
             });
             this.editView = !this.editView;
             this.fetchUserData(this.userId);
             this.bookMarkForm.reset();
           },
-          error: (error) => {
+          error: () => {
             this.mssgService.add({
               severity: 'error',
               summary: 'Error',
-              detail: 'Failed to update data',
+              detail: 'Failed to update Link',
+              life: 2000, // Time duration to display message
             });
           },
         });
@@ -216,21 +219,22 @@ export class LinkListComponent implements OnInit {
   // Function to handle delete operation
   onDelete(delItem: Link) {
     if (this.userId && delItem._id) {
-      console.log(delItem);
       this.userService.deleteLink(this.userId, delItem._id).subscribe({
-        next: (response) => {
+        next: () => {
           this.mssgService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'Data deleted successfully',
+            detail: 'Link deleted successfully',
+            life: 2000, // Time duration to display message
           });
           this.fetchUserData(this.userId); // Fetch updated user data
         },
-        error: (error) => {
+        error: () => {
           this.mssgService.add({
             severity: 'error',
             summary: 'Error',
-            detail: 'Failed to delete data',
+            detail: 'Failed to delete Link',
+            life: 2000, // Time duration to display message
           });
         },
       });
@@ -247,17 +251,16 @@ export class LinkListComponent implements OnInit {
           this.mssgService.add({
             severity: 'success', // Severity of message
             summary: 'Success', // Summary of message
-            detail: 'All data deleted', // Detail message
-            life: 3000, // Time duration to display message
+            detail: 'All data deleted successfully', // Detail message
+            life: 2000, // Time duration to display message
           });
         },
         error: () => {
-          console.log('Failed to delete all links');
           this.mssgService.add({
             severity: 'error', // Severity of message
             summary: 'Error', // Summary of message
             detail: 'Failed to delete all data', // Detail message
-            life: 3000, // Time duration to display message
+            life: 2000, // Time duration to display message
           });
         }
       });
@@ -307,12 +310,11 @@ export class LinkListComponent implements OnInit {
 
   // Function to fetch user data
   fetchUserData(userId: any) {
+    // If user ID exists
     if (userId) {
-      // If user ID exists
       // Fetch user data from service
       this.userService.getUserData(userId).subscribe({
         next: (userData: User) => {
-          // Success callback
           this.data = userData.links; // Assigning user data
           this.filteredData = [...this.data]; // Assigning filtered data
           this.filteredDataLoaded = true
