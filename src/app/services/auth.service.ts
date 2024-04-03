@@ -23,13 +23,9 @@ export class AuthService {
       email, 
       password
     }
+    // Send a POST request to the server to login the user
     return this.http.post('https://link-union-backend.onrender.com/login', userDetails, { withCredentials: true });
   }
-
-  // logoutUser(): Observable<any> {
-  //   const url = `https://link-union-backend.onrender.com/logout`;
-  //   return this.http.get(url, {withCredentials: true});
-  // }
 
   private userActionSubject = new Subject<void>();
 
