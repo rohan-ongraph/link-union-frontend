@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MegaMenuItem, MenuItem } from 'primeng/api';
 // import { Authenticated } from '../../services/auth.service';
-import { userService } from '../../services/user-service.service';
 import { DecodedToken, User } from '../../interfaces/user';
 import { jwtDecode } from 'jwt-decode';
 import { AuthService } from '../../services/auth.service';
@@ -21,8 +20,6 @@ export class NavbarComponent implements OnInit {
   userName: string = ''; // User's name
 
   constructor(
-    // private authetication: Authenticated, // Authentication service
-    private userService: userService, // User service
     private authService: AuthService
   ) {}
 
@@ -60,12 +57,13 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize component
-    this.loadUserData(); // Load user data
+    // this.loadUserData(); // Load user data
     this.updateMenuItems(); // Update menu items based on initial screen size
 
     this.authService.onUserAction().subscribe(() => {
       // Refresh logic or update visibility
       this.isUser = this.checkLoggedInStatus();
+      this.loadUserData(); // Call loadUserData() when user action occurs
     });
   }
 
@@ -85,8 +83,6 @@ export class NavbarComponent implements OnInit {
 
   // Function to load user data
   loadUserData(): void {
-    // this.isUser = !!this.token; // Set isUser to true if token exists, false otherwise
-
     if (this.token) {
       try {
         // Decode the JWT token
