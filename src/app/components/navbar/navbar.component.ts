@@ -96,7 +96,7 @@ export class NavbarComponent implements OnInit {
         console.error('Error decoding JWT token:', error);
       }
     } else {
-      // console.error('JWT token not found in session storage');
+      console.error('JWT token not found in session storage');
       this.isUser = false
     }
   }
