@@ -57,7 +57,7 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize component
-    // this.loadUserData(); // Load user data
+    this.loadUserData(); // Load user data
     this.updateMenuItems(); // Update menu items based on initial screen size
 
     this.authService.onUserAction().subscribe(() => {
