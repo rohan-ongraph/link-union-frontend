@@ -16,7 +16,7 @@ export class SignUpComponent {
     private auth: AuthService,
     private mssgService: MessageService,
     private route: Router,
-    private zone: NgZone
+    private authService: AuthService
   ) {}
 
 // Form group for sign-up form with validators
@@ -69,4 +69,17 @@ submitForm() {
     }
   });
 }
+
+signUpWithGoogle() {
+  this.authService.signUpWithGoogle().subscribe({
+   next: (res) => {
+    console.log('Sign up with Google response:', res);
+   },
+   error: (err) => {
+    console.log('Error: ', err);
+   }
+  }
+  );
+}
+
 }  

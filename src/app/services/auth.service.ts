@@ -29,6 +29,10 @@ export class AuthService {
     return this.http.post(`${this.BASE_URL}/login`, userDetails, { withCredentials: true });
   }
 
+  signUpWithGoogle():Observable<any>{
+    return this.http.get(`${this.BASE_URL}/auth/google`, {withCredentials: true})
+  }
+
   private userActionSubject = new Subject<void>();
 
   // Method to notify subscribers about user actions
