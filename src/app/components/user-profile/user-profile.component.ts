@@ -55,7 +55,7 @@ export class UserProfileComponent implements OnInit {
   logout(): void {
     sessionStorage.clear();
     // Notify subscribers about user action
-    this.authService.notifyUserAction();
+    this.authService.notifyUserAction(false);
     // Navigate to sign-in page
     this.router.navigate(['signIn']);
   }
@@ -70,7 +70,7 @@ export class UserProfileComponent implements OnInit {
           // Clear session storage
           sessionStorage.clear();
           // Notify subscribers about user action
-          this.authService.notifyUserAction();
+          this.authService.notifyUserAction(false);
           // Navigate to sign-in page
           this.router.navigate(['signIn']);
         }

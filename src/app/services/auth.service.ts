@@ -33,15 +33,15 @@ export class AuthService {
     return this.http.get(`${this.BASE_URL}/auth/google`)
   }
 
-  private userActionSubject = new Subject<void>();
+  private userActionSubject = new Subject<boolean>();
 
   // Method to notify subscribers about user actions
-  notifyUserAction(): void {
-    this.userActionSubject.next();
+  notifyUserAction(isAuthenticated: boolean): void {
+    this.userActionSubject.next(isAuthenticated);
   }
 
   // Method to subscribe to user actions
-  onUserAction(): Observable<void> {
+  onUserAction(): Observable<boolean> {
     return this.userActionSubject.asObservable();
   }
 }

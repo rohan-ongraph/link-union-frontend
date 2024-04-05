@@ -34,7 +34,7 @@ export class SignInComponent {
         next: (res) => {
           // this.ngZone.run(() => {
             sessionStorage.setItem('token', res.token); // Store token in session storage
-            this.auth.notifyUserAction();
+            this.auth.notifyUserAction(true);
 
           // Redirect to list page upon successful login
           this.route.navigate(['list']);
