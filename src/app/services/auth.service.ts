@@ -29,6 +29,10 @@ export class AuthService {
     return this.http.post(`${this.BASE_URL}/login`, userDetails);
   }
 
+  isLoggedIn(): boolean {
+    return !!sessionStorage.getItem('token');
+  }
+
   signUpWithGoogle():Observable<any>{
     return this.http.get(`${this.BASE_URL}/auth/google`)
   }

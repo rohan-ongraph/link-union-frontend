@@ -74,7 +74,7 @@ export class NavbarComponent implements OnInit {
 
   token = sessionStorage?.getItem('token');
   decodedToken!: DecodedToken;
-  isUser = !!this.token; // Set isUser to true if token exists, false otherwise
+  isUser:boolean = false; // Set isUser to true if token exists, false otherwise
 
   //token data
   userId!: string;
@@ -83,6 +83,8 @@ export class NavbarComponent implements OnInit {
 
   // Function to load user data
   loadUserData(): void {
+    this.isUser = this.authService.isLoggedIn();
+
     if (this.token) {
       try {
         // Decode the JWT token
