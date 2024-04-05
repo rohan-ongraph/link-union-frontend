@@ -26,11 +26,11 @@ export class AuthService {
       password
     }
     // Send a POST request to the server to login the user
-    return this.http.post(`${this.BASE_URL}/login`, userDetails, { withCredentials: true });
+    return this.http.post(`${this.BASE_URL}/login`, userDetails);
   }
 
   signUpWithGoogle():Observable<any>{
-    return this.http.get(`${this.BASE_URL}/auth/google`, {withCredentials: true})
+    return this.http.get(`${this.BASE_URL}/auth/google`)
   }
 
   private userActionSubject = new Subject<void>();

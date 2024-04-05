@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
@@ -33,6 +33,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { NotFoundComponent } from './components/not-found/not-found.component'; // Import ScrollTopModule from PrimeNG
+import { AuthInterceptor } from './interceptors/auth-header.interceptor';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,12 @@ import { NotFoundComponent } from './components/not-found/not-found.component'; 
   ],
   providers: [
     MessageService,
-    ConfirmationService
+    ConfirmationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true
+    }
   ],
   bootstrap: [AppComponent]
 })
