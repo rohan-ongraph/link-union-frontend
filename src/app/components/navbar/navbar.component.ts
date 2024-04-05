@@ -57,24 +57,18 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize component
-    this.loadUserData(); // Load user data
-    this.updateMenuItems(); // Update menu items based on initial screen size
-
+    
     this.authService.onUserAction().subscribe(() => {
-      // Refresh logic or update visibility
-      this.isUser = this.checkLoggedInStatus();
       this.loadUserData(); // Call loadUserData() when user action occurs
     });
-  }
 
-  private checkLoggedInStatus(): boolean {
-    // Check if user is logged in based on session storage or other logic
-    return sessionStorage.getItem('token') !== null;
+    this.loadUserData(); // Load user data
+    this.updateMenuItems(); // Update menu items based on initial screen size
   }
 
   token = sessionStorage?.getItem('token');
   decodedToken!: DecodedToken;
-  isUser = !!this.token; // Set isUser to true if token exists, false otherwise
+  isUser = false; // Set isUser to false 
 
   //token data
   userId!: string;
