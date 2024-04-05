@@ -33,7 +33,6 @@ export class SignInComponent {
       this.auth.loginUser(email, password).subscribe({
         next: (res) => {
           // this.ngZone.run(() => {
-            console.log(res);
             sessionStorage.setItem('token', res.token); // Store token in session storage
             this.auth.notifyUserAction();
 

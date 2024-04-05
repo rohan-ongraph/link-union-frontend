@@ -54,8 +54,6 @@ export class UserProfileComponent implements OnInit {
 
   logout(): void {
     sessionStorage.clear();
-    // Clear cookie by setting its expiration date in the past
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     // Notify subscribers about user action
     this.authService.notifyUserAction();
     // Navigate to sign-in page
@@ -71,8 +69,6 @@ export class UserProfileComponent implements OnInit {
         next: () => {
           // Clear session storage
           sessionStorage.clear();
-          // Clear cookie by setting its expiration date in the past
-          document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
           // Notify subscribers about user action
           this.authService.notifyUserAction();
           // Navigate to sign-in page
