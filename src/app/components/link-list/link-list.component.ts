@@ -189,6 +189,7 @@ export class LinkListComponent implements OnInit {
       tags: this.editTags,
     };
 
+    // If userId and editedItemId is present do the following task
     if (this.userId && editedItem._id) {
       this.userService
         .editLink(this.userId, editedItem._id, editedItem)

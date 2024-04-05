@@ -20,6 +20,12 @@ export class NavbarComponent implements OnInit {
   userName: string = ''; // User's name
   token!: any; 
   isUser:boolean = false; // Set isUser to false 
+  decodedToken!: DecodedToken;
+
+  //token data
+  userId!: string;
+  email!: string;
+  fullname!: string;
 
   constructor(
     private authService: AuthService
@@ -78,14 +84,6 @@ export class NavbarComponent implements OnInit {
     }
   };
 
-  
-
-  decodedToken!: DecodedToken;
-
-  //token data
-  userId!: string;
-  email!: string;
-  fullname!: string;
 
   // Function to load user data
   loadUserData(): void {

@@ -10,7 +10,8 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  BASE_URL: string = "https://link-union-backend.onrender.com"
+  // Common URL termed as base url
+  private BASE_URL: string = "https://link-union-backend.onrender.com"
 
   // Method to register a new user
   registerUser(userDetails: User): Observable<any> {
@@ -20,6 +21,7 @@ export class AuthService {
     return this.http.post(`${this.BASE_URL}/register`, userDetails);
   }
 
+  // Method to login a user
   loginUser(email: string, password: string): Observable<any> {
     const userDetails = {
       email, 
@@ -29,6 +31,7 @@ export class AuthService {
     return this.http.post(`${this.BASE_URL}/login`, userDetails);
   }
 
+  // Method for google signIn
   signUpWithGoogle():Observable<any>{
     return this.http.get(`${this.BASE_URL}/auth/google`)
   }
