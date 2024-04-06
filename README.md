@@ -8,7 +8,7 @@ Link Union is a web application designed for managing links from various sources
     - [Features](#features)
     - [Installation](#installation)
     - [Usage](#usage)
-2. [Local Database](#local-database)
+2. [Database](#database)
     - [MongoDB Atlas](#mongodb-atlas)
     - [Service Setup](#service-setup)
     - [Data Structure](#data-structure)
