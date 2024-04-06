@@ -8,7 +8,6 @@ Link Union is a web application designed for managing links from various sources
     - [Features](#features)
     - [Installation](#installation)
     - [Usage](#usage)
-    - [Development](#development)
 2. [Local Database](#local-database)
     - [MongoDB Atlas](#mongodb-atlas)
     - [Service Setup](#service-setup)
@@ -35,9 +34,15 @@ Link Union is a web application designed for managing links from various sources
 
 To install Link Union locally, follow these steps:
 
-1. Clone the repository: `git clone <repository-url>`
-2. Navigate to the project directory: `cd link-union`
-3. Install dependencies: `npm install` or `npm i`
+1. Clone the repository
+2. Navigate to the project directory
+3. Install dependencies
+
+```git
+git clone <repository-url>
+cd link-union
+npm install
+```
 
 ## Usage
 
@@ -49,27 +54,35 @@ Navigate to `http://localhost:4200/` in your web browser to access the applicati
 
 ### Deploying to Netlify
 
-1. **Build Your Angular Application**: Before deploying to Netlify, you need to build your Angular application. Run the following command in your project directory: `ng build --prod`
+1. **Build Your Angular Application**: Before deploying to Netlify, you need to build your Angular application. Run the following command in your project directory:
+
+```bash
+ng build --prod
+```
 
 2. **Create a Netlify Account**: If you haven't already, sign up for a free account on Netlify.
 
-3. **Install the Netlify CLI (Command Line Interface)**: `npm install -g netlify-cli`
+3. **Install the Netlify CLI (Command Line Interface)**:
 
-4. **Login to Netlify**: Run the following command and follow the prompts to log in to your Netlify account: `netlify login`
+```bash
+npm install -g netlify-cli
+```
 
-5. **Deploy Your Application**: Navigate to your project's dist folder (where your compiled application code resides) and run the following command: ```bash
+4. **Login to Netlify**: Run the following command and follow the prompts to log in to your Netlify account:
+
+```bash
+netlify login
+```
+
+5. **Deploy Your Application**: Navigate to your project's dist folder (where your compiled application code resides) and run the following command:
+
+```bash
 cd dist/link-union  # Adjust the directory if necessary
 netlify deploy
-
+```
 (Follow the prompts to deploy your application. Netlify will provide you with a unique URL for your deployed application.)
 
 6. **Configure Custom Domain (Optional)**: If you have a custom domain, you can configure it in your Netlify settings.
-
-## Development
-
-Link Union is built with Angular. To generate a new component, use the following command: `ng generate component component-name`
-
-To build the project, run: `ng build`
 
 ## Database
 
