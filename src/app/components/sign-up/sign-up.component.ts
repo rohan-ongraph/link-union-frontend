@@ -70,16 +70,16 @@ submitForm() {
   });
 }
 
-signUpWithGoogle() {
-  this.authService.signUpWithGoogle().subscribe({
-   next: (res) => {
-    console.log('Sign up with Google response:', res);
-   },
-   error: (err) => {
-    console.log('Error: ', err);
-   }
-  }
-  );
-}
+// signUpWithGoogle() {
+//   this.authService.signUpWithGoogle().subscribe({
+//    next: (res) => {
+//     console.log('Sign up with Google response:', res);
+//    },
+//    error: (err) => {
+//     console.log('Error: ', err);
+//    }
+//   }
+//   );
+// }
 
 }  

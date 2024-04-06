@@ -71,5 +71,4 @@ export class userService {
     const url = `${this.BASE_URL}/users/${userId}/contact`;
     return this.http.post(url, contactForm);
   }
-
 }

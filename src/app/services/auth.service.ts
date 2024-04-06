@@ -31,10 +31,10 @@ export class AuthService {
     return this.http.post(`${this.BASE_URL}/login`, userDetails);
   }
 
-  // Method for google signIn
-  signUpWithGoogle():Observable<any>{
-    return this.http.get(`${this.BASE_URL}/auth/google`)
-  }
+  // // Method for google signIn
+  // signUpWithGoogle():Observable<any>{
+  //   return this.http.get(`${this.BASE_URL}/auth/google`)
+  // }
 
   private userActionSubject = new Subject<boolean>();
 
