@@ -1,4 +1,4 @@
-Styles for the container holding the list
+/* Styles for the container holding the list */
 .list-container {
   display: flex; /* Display as flex container */
   flex-direction: column; /* Stack items vertically */
@@ -91,4 +91,8 @@ h2 {
 
 h2{
   word-break: break-all;
+}
+
+.scroll-container{
+  overflow-y: auto;
 }

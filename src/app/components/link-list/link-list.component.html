@@ -91,14 +91,17 @@
       <p-scrollTop></p-scrollTop>
 
       @if (!filteredDataLoaded) {
-        <div style="display: flex; justify-content: center; align-items: center;">
-          <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
-        </div>
+      <div style="display: flex; justify-content: center; align-items: center">
+        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+      </div>
       }
       <!-- Loop through bookmarks and display each one -->
       @if(data && data.length>0){ @for(item of filteredData | sortBy:
       selectedFilter ; track item._id){
-      <div class="col-12" #listContainer>
+      <div
+        class="col-12 scroll-container"
+        appScrollNearEnd [hasMoreData]="hasMoreData" (nearEnd)="onScroll()"
+      >
         <p-card>
           <div
             class="flex flex-column justify-content-between align-items-center md:flex-row gap-5"
@@ -156,7 +159,12 @@
           </div>
         </p-card>
       </div>
-      }} @else {
+      
+      }
+      @if (loading) {
+        <p style="text-align: center;">Loading.......</p>
+      }
+    } @else {
       <!-- Display message when there are no bookmarks -->
       <div class="flex justify-content-center align-items-center">
         <p class="font-semibold sm:font-bold text-lg sm:text-3xl">

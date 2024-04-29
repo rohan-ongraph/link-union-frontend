@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '../interfaces/user';
 import { Observable, Subject } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,10 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   // Common URL termed as base url
-  private BASE_URL: string = "https://link-union-backend.onrender.com"
+  BASE_URL: string = environment.BASE_URL
 
   // Method to register a new user
   registerUser(userDetails: User): Observable<any> {
-    // Initialize the list of data for the user
-    userDetails.links = [];
     // Send a POST request to the server to register the user
     return this.http.post(`${this.BASE_URL}/register`, userDetails);
   }
@@ -31,9 +30,16 @@ export class AuthService {
     return this.http.post(`${this.BASE_URL}/login`, userDetails);
   }
 
-  // // Method for google signIn
-  // signUpWithGoogle():Observable<any>{
-  //   return this.http.get(`${this.BASE_URL}/auth/google`)
+  // Method to trigger Google OAuth authentication
+  triggerGoogleAuth(): Observable<any> {
+    console.log("HITTING GOOGLE API")
+    const headers = new HttpHeaders()
+      .set('Access-Control-Allow-Origin', '*')
+    return this.http.get<any>(`${this.BASE_URL}/auth/google`, { headers });
+  }
+
+  // waitGoogleCallback(): Observable<any>{
+  //   return this.http.get(`${this.BASE_URL}/auth/google/callback`)
   // }
 
   private userActionSubject = new Subject<boolean>();

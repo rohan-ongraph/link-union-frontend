@@ -35,6 +35,12 @@ export class LinkListComponent implements OnInit {
 
   filteredDataLoaded: boolean = false;
 
+  // Infinit scroll variable's
+  page: number = 1;
+  pageSize: number = 5;
+  totalDataCount: number = 0;
+  loading: boolean = false;
+
   ngOnInit(): void {
     // Retrieve the JWT token from session storage
     this.token = sessionStorage.getItem('token');
@@ -263,7 +269,7 @@ export class LinkListComponent implements OnInit {
             detail: 'Failed to delete all data', // Detail message
             life: 2000, // Time duration to display message
           });
-        }
+        },
       });
     }
   }
@@ -302,26 +308,65 @@ export class LinkListComponent implements OnInit {
       accept: () => {
         if (this.data.length > 0) {
           // If data exists
-          this.onDeleteAll() // Delete all data
+          this.onDeleteAll(); // Delete all data
         }
       },
       reject: () => {}, // No action on reject
     });
   }
 
+  toggleLoading(){
+    this.loading = !this.loading
+  }
+
   // Function to fetch user data
   fetchUserData(userId: any) {
     // If user ID exists
     if (userId) {
+      this.data = [];
+
+      this.toggleLoading();
       // Fetch user data from service
-      this.userService.getUserData(userId).subscribe({
-        next: (userData: User) => {
-          this.data = userData.links; // Assigning user data
+      this.userService.getUserData(userId, this.page, this.pageSize).subscribe({
+        next: (res: any) => {
+          this.data = [...res.links]; // Append new data to existing data
           this.filteredData = [...this.data]; // Assigning filtered data
-          this.filteredDataLoaded = true
+          this.filteredDataLoaded = true;          
         },
+        complete: () => {
+          this.toggleLoading();
+        }
       });
     }
+  }
+
+  hasMoreData = true;
+
+  appendData = () => {
+    this.toggleLoading()
+
+    this.userService.getUserData(this.userId, this.page, this.pageSize).subscribe({
+      next: (res: any) => {
+        this.data = [...this.data,...res.links]; // Append new data to existing data
+
+        // Check if there is more data available based on the total data count
+      if (this.data.length >= res.totalDataCount) {
+        this.hasMoreData = false; // No more data available
+      }
+
+        this.filteredData = [...this.data]; // Assigning filtered data
+        this.filteredDataLoaded = true;          
+      },
+      complete: () => {
+        this.toggleLoading();
+      }
+    })
+  }
+
+  // Function to handle scrolling event
+  onScroll() {
+    this.page++;
+    this.appendData()
   }
 
   // Function to generate PDF from data

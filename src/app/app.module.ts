@@ -45,6 +45,10 @@ import { AuthInterceptor } from './interceptors/auth-header.interceptor';
 // Importing message and confirmation service from primeNG api
 import { ConfirmationService, MessageService } from 'primeng/api';
 
+// Importing infinite scroll directive
+import { ScrollNearEndDirective } from './directives/scroll-near-end.directive';
+
+
 @NgModule({
   declarations: [
     // Declaring all components and pipes
@@ -58,7 +62,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     HomeComponent,
     NavbarComponent,
     UserProfileComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ScrollNearEndDirective,
   ],
   imports: [
     // Importing required Angular and PrimeNG modules
@@ -83,7 +88,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
     SidebarModule,
     InputTextareaModule,
     TooltipModule,
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
   ],
   providers: [
     // Providing services and HTTP interceptor

@@ -10,6 +10,7 @@ import { LinkListComponent } from './components/link-list/link-list.component';
 import { HomeComponent } from './components/home/home.component';
 import { authGuard } from './guards/auth.guard';
 
+
 const routes: Routes = [
   {
     path: '', // Default route to HomeComponent

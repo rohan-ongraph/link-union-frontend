@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ContactForm, Link, User } from '../interfaces/user';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class userService {
   constructor(private http: HttpClient) { }
 
   // Base URL for backend API
-  BASE_URL: string = "https://link-union-backend.onrender.com"
+  BASE_URL: string = environment.BASE_URL
 
   // Retrieve user token from session storage
   getUserToken(): string | null {
@@ -19,9 +21,9 @@ export class userService {
   }
 
   // Retrieve user data by user ID
-  getUserData(userId: string): Observable<User> {
-    const url = `${this.BASE_URL}/users/${userId}`;
-    return this.http.get<User>(url);
+  getUserData(userId: string, page: number, pageSize: number): Observable<any> {
+    const url = `${this.BASE_URL}/user/${userId}/links?page=${page}&pageSize=${pageSize}`;
+    return this.http.get<any>(url);
   }
 
   // Set user data for a given user ID
