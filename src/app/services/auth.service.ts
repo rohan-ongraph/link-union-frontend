@@ -33,9 +33,7 @@ export class AuthService {
   // Method to trigger Google OAuth authentication
   triggerGoogleAuth(): Observable<any> {
     console.log("HITTING GOOGLE API")
-    const headers = new HttpHeaders()
-      .set('Access-Control-Allow-Origin', '*')
-    return this.http.get<any>(`${this.BASE_URL}/auth/google`, { headers });
+    return this.http.get<any>(`${this.BASE_URL}/auth/google`);
   }
 
   // waitGoogleCallback(): Observable<any>{
