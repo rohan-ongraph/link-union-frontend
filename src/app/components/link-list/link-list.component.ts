@@ -19,9 +19,9 @@ export class LinkListComponent implements OnInit {
     private userService: userService, // User service
     private confirmationService: ConfirmationService // Confirmation dialog service
   ) {}
-  data!: Link[]; // Variable for data
+  data: Link[] = []; // Variable for data
   filteredData!: Link[]; // Variable for filtered data
-  isLoading: boolean = false; // Flag for loading state
+  isLoading: boolean = false; // Flag for loading   state
   token!: string | null;
   decodedToken!: DecodedToken;
 
@@ -56,8 +56,6 @@ export class LinkListComponent implements OnInit {
       } catch (error) {
         console.error('Error decoding JWT token:', error);
       }
-    } else {
-      // console.error('JWT token not found in session storage');
     }
     this.fetchUserData(this.userId);
   }
@@ -138,6 +136,8 @@ export class LinkListComponent implements OnInit {
             });
             // Reset form and hide the dialog
             this.bookMarkForm.reset();
+
+            this.page = 1
             this.fetchUserData(this.userId); // Fetch updated user data
             this.visible = !this.visible; // Toggle visible flag
           },
@@ -208,6 +208,8 @@ export class LinkListComponent implements OnInit {
               life: 2000, // Time duration to display message
             });
             this.editView = !this.editView;
+            this.page = 1
+
             this.fetchUserData(this.userId);
             this.bookMarkForm.reset();
           },
@@ -234,6 +236,8 @@ export class LinkListComponent implements OnInit {
             detail: 'Link deleted successfully',
             life: 2000, // Time duration to display message
           });
+          this.page = 1
+
           this.fetchUserData(this.userId); // Fetch updated user data
         },
         error: () => {
@@ -315,27 +319,35 @@ export class LinkListComponent implements OnInit {
     });
   }
 
-  toggleLoading(){
-    this.loading = !this.loading
+  toggleLoading() {
+    this.loading = !this.loading;
   }
 
   // Function to fetch user data
   fetchUserData(userId: any) {
     // If user ID exists
     if (userId) {
+
       this.data = [];
 
       this.toggleLoading();
+
       // Fetch user data from service
       this.userService.getUserData(userId, this.page, this.pageSize).subscribe({
         next: (res: any) => {
           this.data = [...res.links]; // Append new data to existing data
+
           this.filteredData = [...this.data]; // Assigning filtered data
-          this.filteredDataLoaded = true;          
+
+          this.totalDataCount = res.totalDataCount; // Update totalDataCount
+
+          this.hasMoreData = this.data.length < this.totalDataCount;
+
+          this.filteredDataLoaded = true;
         },
         complete: () => {
           this.toggleLoading();
-        }
+        },
       });
     }
   }
@@ -343,30 +355,48 @@ export class LinkListComponent implements OnInit {
   hasMoreData = true;
 
   appendData = () => {
-    this.toggleLoading()
+    this.toggleLoading();
 
-    this.userService.getUserData(this.userId, this.page, this.pageSize).subscribe({
-      next: (res: any) => {
-        this.data = [...this.data,...res.links]; // Append new data to existing data
+    this.userService
+      .getUserData(this.userId, this.page, this.pageSize)
+      .subscribe({
+        next: (res: any) => {
 
-        // Check if there is more data available based on the total data count
-      if (this.data.length >= res.totalDataCount) {
-        this.hasMoreData = false; // No more data available
-      }
+          this.data = [...this.data, ...res.links]; // Append new data to existing data
 
-        this.filteredData = [...this.data]; // Assigning filtered data
-        this.filteredDataLoaded = true;          
-      },
-      complete: () => {
-        this.toggleLoading();
-      }
-    })
-  }
+          // Update totalDataCount
+          this.totalDataCount = res.totalDataCount;
+
+          // Check if there is more data available based on the total data count
+          if (this.data.length >= res.totalDataCount) {
+            this.hasMoreData = false; // No more data available
+          }
+
+          this.filteredData = [...this.data]; // Assigning filtered data
+          this.filteredDataLoaded = true;
+
+        },
+        complete: () => {
+          this.toggleLoading();
+        },
+      });
+  };
 
   // Function to handle scrolling event
   onScroll() {
-    this.page++;
-    this.appendData()
+    // Calculate the total number of pages based on total data count and page size
+    const totalPages = Math.ceil(this.totalDataCount / this.pageSize);
+    
+    // Check if the current page is less than the total number of pages
+    if (this.page < totalPages) {
+      // Increment the page number
+      this.page++;
+
+      // Fetch additional data only if current data length is less than total data count
+      if (this.data.length < this.totalDataCount) {
+        this.appendData();
+      }
+    }
   }
 
   // Function to generate PDF from data

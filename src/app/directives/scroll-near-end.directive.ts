@@ -1,4 +1,6 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Directive({
   selector: '[appScrollNearEnd]'
@@ -14,20 +16,30 @@ export class ScrollNearEndDirective implements OnInit {
   @Input() hasMoreData = true;
 
   private window!: Window;
+  private scrollSubject = new Subject<void>(); // Specify the type of Subject
 
   constructor(private el: ElementRef) {}
 
   ngOnInit(): void {
     // Save window object for type safety
     this.window = window;
+
+    // Debounce scroll event
+    this.scrollSubject.pipe(debounceTime(300)).subscribe(() => {
+      this.handleScroll();
+    });
   }
 
   @HostListener('window:scroll', ['$event.target'])
   windowScrollEvent(event: KeyboardEvent) {
+    this.scrollSubject.next(); // Call next without arguments
+  }
 
-    if(!this.hasMoreData){
-      return
+  private handleScroll() {
+    if (!this.hasMoreData) {
+      return;
     }
+
     // Height of the whole window page
     const heightOfWholePage = this.window.document.documentElement.scrollHeight;
 

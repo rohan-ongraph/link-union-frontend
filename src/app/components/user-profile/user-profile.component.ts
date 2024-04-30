@@ -54,6 +54,13 @@ export class UserProfileComponent implements OnInit {
 
   logout(): void {
     sessionStorage.clear();
+
+    if (document.cookie.includes('token')) {
+    
+      // Remove the cookie by setting its expiry date to a past date
+      document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/';
+    }
+    
     // Notify subscribers about user action
     this.authService.notifyUserAction(false);
     // Navigate to sign-in page

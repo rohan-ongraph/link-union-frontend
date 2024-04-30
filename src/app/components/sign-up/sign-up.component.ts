@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { User } from '../../interfaces/user';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-sign-up',
@@ -16,7 +17,6 @@ export class SignUpComponent {
     private auth: AuthService,
     private mssgService: MessageService,
     private route: Router,
-    private authService: AuthService
   ) {}
 
   // Form group for sign-up form with validators
@@ -74,12 +74,7 @@ export class SignUpComponent {
   }
 
   signUpWithGoogle() {
-    this.authService.triggerGoogleAuth().subscribe({
-      next: (response) => {
-        // window.location.href = response.url;
-        // this.route.navigate(['signIn'])
-      },
-      error: () => console.log("ERROR IN GOOGLE SIGN UP")
-    });
+    // Redirect to the backend URL
+    window.location.href = `${environment.BASE_URL}/auth/google`;
   }
 }

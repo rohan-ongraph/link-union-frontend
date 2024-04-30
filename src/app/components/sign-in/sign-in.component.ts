@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MessageService } from 'primeng/api';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-sign-in',
@@ -16,7 +17,6 @@ export class SignInComponent {
     private mssgService: MessageService,
     private route: Router,
     private ngZone: NgZone,
-    private authService: AuthService
   ) {
     this.isUser = !!sessionStorage.getItem("token")
   }
@@ -75,12 +75,6 @@ export class SignInComponent {
     });
   }
   signInWithGoogle(){
-    this.authService.triggerGoogleAuth().subscribe({
-      next: (response) => {
-        // window.location.href = response.url;
-        this.route.navigate(['signUp'])
-      },
-      error: () => console.log("ERROR IN GOOGLE SIGN UP")
-    });
+    window.location.href = `${environment.BASE_URL}/auth/google`;
   }
 }
