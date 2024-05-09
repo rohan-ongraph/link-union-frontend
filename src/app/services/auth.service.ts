@@ -36,10 +36,6 @@ export class AuthService {
     return this.http.get<any>(`${this.BASE_URL}/auth/google`);
   }
 
-  // waitGoogleCallback(): Observable<any>{
-  //   return this.http.get(`${this.BASE_URL}/auth/google/callback`)
-  // }
-
   private userActionSubject = new Subject<boolean>();
 
   // Method to notify subscribers about user actions

@@ -17,15 +17,24 @@ export interface User {
     tags: Array<string>; // Array of tags associated with the data item
   }
   
-  export interface DecodedToken {
-    email: string;
-    fullname: string;
-    iat: number;
-    userId: string;
+  // Represents the structure of a decoded authentication token.
+export interface DecodedToken {
+  // Email address associated with the user.
+  email: string;
+  // Full name of the user.
+  fullname: string;
+  // Token issue timestamp (Unix timestamp).
+  iat: number;
+  // Unique identifier of the user.
+  userId: string;
 }
 
-  export interface ContactForm {
-    userId: string,
-    subject: string,
-    description: string
-  }
+// Represents the structure of a contact form submission.
+export interface ContactForm {
+  // Unique identifier of the user submitting the form.
+  userId: string;
+  // Subject of the contact form.
+  subject: string;
+  // Description or message content of the contact form.
+  description: string;
+}
